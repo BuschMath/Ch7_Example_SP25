@@ -1,21 +1,32 @@
 #include <iostream>
+using namespace std;
 
-int fib(int n)
-{
-	if (n == 0)
-		return 1;
-	else if (n == 1)
-		return 1;
-	else
-		return fib(n - 1) + fib(n - 2);
+// Recursive binary search function
+int binarySearch(const int arr[], int target, int left, int right) {
+    if (left > right)
+        return -1; // Target not found
+
+    int mid = left + (right - left) / 2;
+
+    if (arr[mid] == target)
+        return mid; // Target found
+    else if (arr[mid] > target)
+        return binarySearch(arr, target, left, mid - 1); // Search left half
+    else
+        return binarySearch(arr, target, mid + 1, right); // Search right half
 }
 
-int main()
-{
-	for(int i=0; i<10; i++)
-		std::cout << fib(i) << ", "; // 1 1 2 3 5 8 13 21 34 55
+int main() {
+    int sortedArray[] = { 2, 4, 6, 8, 10, 12, 14 };
+    int size = sizeof(sortedArray) / sizeof(sortedArray[0]);
+    int target = 10;
 
-	std::cout << "\b\b";
+    int result = binarySearch(sortedArray, target, 0, size - 1);
 
-	return 0;
+    if (result != -1)
+        cout << "Element found at index " << result << endl;
+    else
+        cout << "Element not found in the array" << endl;
+
+    return 0;
 }
